@@ -1,8 +1,4 @@
-import type { Route } from "./+types/not-found";
-
-export function loader() {
-  return null;
-}
+import { Link } from 'react-router-dom';
 
 export default function NotFoundPage() {
   return (
@@ -13,12 +9,12 @@ export default function NotFoundPage() {
         <p className="text-gray-600 mb-8">
           The page you're looking for doesn't exist.
         </p>
-        <a
-          href="/"
+        <Link
+          to="/"
           className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
         >
           Go Home
-        </a>
+        </Link>
       </div>
     </div>
   );
