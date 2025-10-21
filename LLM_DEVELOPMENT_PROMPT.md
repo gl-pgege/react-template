@@ -480,28 +480,49 @@ Common Context Errors to Avoid:
 - ❌ Placing providers too deep in the component tree
 - ❌ Creating contexts without TypeScript types
 
-Extending the Repository Without Bugs (MANDATORY):
+## Testing Requirements
+
+**CRITICAL: Always Test Routing**
+- When adding new routes or navigation features, you MUST add corresponding router tests
+- Focus on routing behavior, NOT individual component UI testing
+- Test files go in `src/app/__tests__/router.test.tsx`
+- Use Vitest and React Testing Library for router integration tests
+- Verify: route navigation, URL matching, lazy loading, 404 handling, navigation links
+
+**Testing Commands:**
+```bash
+yarn test:run    # Run once (preferred)
+yarn test:ui     # Interactive UI mode (optional)
+```
+
+**What to Test:**
+- Direct URL access to routes renders proper components
+- 404 handling for unknown routes
+- Layout preservation on nested routes
+
+**What NOT to Test:**
+- Individual component UI rendering
+- Component props or state
+- Styling or CSS classes
+- Text content or specific elements
+
+## Extending the Repository Without Bugs (MANDATORY):
 - Always start by thoroughly exploring the existing codebase using tools like codebase_search, grep, and read_file
 - Understand dependencies, existing features, and architecture before making changes
 - Make incremental changes and verify each step
 - After implementing features, run "npm run build" to check for compilation errors
-- Implement unit tests in src/testing/ for critical components
+- **MUST implement router tests** in src/app/__tests__/ for any new routing functionality
 - Use TypeScript strictly - never ignore type errors
 - Before finalizing, ensure all navigation and interactions work as expected
 - As a final QA step, run "npm run build" and confirm it completes without errors before outputting the task summary
 
-Development Workflow:
-1. First, read the current src/app/router.tsx and existing route files to understand structure
-2. Plan your routing structure, adding to existing routes where possible
-3. Create your feature in src/features/[your-feature-name]/
-4. Create new route files for your feature in src/app/routes/
-5. Update src/config/paths.ts with your new route paths
-6. Update src/app/router.tsx to include your new routes, preserving existing ones if they don't conflict
-7. Implement full navigation if required (e.g., updating navigation in app/root.tsx)
-8. Verify by running "npm run build"
-9. Ensure everything is visible and functional at the root URL
-10. If the build fails, diagnose and fix errors, then re-run the build
-11. Only after a successful build, output the task summary
+Development Approach:
+- Understand the existing codebase structure before making changes
+- Create features using the feature-based architecture (src/features/[feature-name]/)
+- Add routes and update routing configuration as needed
+- **CRITICAL: Add router tests** for any new routing functionality  
+- Ensure everything builds successfully and is functional
+- Make work visible at the root URL when applicable
 
 Tool Usage:
 - run_terminal_command: Execute shell commands (install packages, file operations)
